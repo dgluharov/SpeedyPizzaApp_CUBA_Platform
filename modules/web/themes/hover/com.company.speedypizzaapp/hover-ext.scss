@@ -1,0 +1,58 @@
+/* Define your theme modifications inside next mixin */
+@mixin com_company_speedypizzaapp-hover-ext {
+  .metrics-panel {
+    border-radius: 4px;
+    transition: box-shadow 100ms;
+    width: calc(45% - 20px) !important;
+    height: 150px;
+
+    &:hover {
+      box-shadow: 0 0 20px #d4d46e;
+    }
+  }
+
+  .metrics-hbox {
+    border-radius: 4px;
+    transition: box-shadow 100ms;
+    width: calc(95% - 20px) !important;
+    height: 20px !important;
+
+    &:hover {
+      box-shadow: 0 0 20px #73d3d4;
+    }
+
+    &[width-range~="0px-600px"] {
+      background-color: #548041;
+    }
+
+    &[width-range~="601px-1000px"] {
+      background-color: #d35741;
+    }
+
+    &[width-range~="1001px-"] {
+      background-color: #8181ff;
+    }
+  }
+
+  .widgets-panel {
+    width: 100%;
+  }
+
+  .c-sidemenu-responsive {
+    overflow: visible;
+  }
+
+  .dashboard-layout {
+    overflow: auto;
+  }
+
+  .v-slot-widgets-panel,
+  .widgets-panel {
+    overflow: auto;
+  }
+
+  .metrics-panel,
+  .dashboard-widget {
+    margin: 10px;
+  }
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.speedypizzaapp.web.screens.order">
+    <data>
+        <instance id="orderDc"
+                  class="com.company.speedypizzaapp.entity.Order"
+                  view="order-full-view">
+            <loader/>
+            <collection id="linesDc" property="lines"/>
+        </instance>
+        <collection id="customersDc" class="com.company.speedypizzaapp.entity.Customer" view="_local">
+            <loader id="customersLc">
+                <query>
+                    <![CDATA[select e from speedypizzaapp_Customer e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="staffsDc" class="com.company.speedypizzaapp.entity.Staff" view="_minimal">
+            <loader id="staffsLc">
+                <query>
+                    <![CDATA[select e from speedypizzaapp_Staff e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <hbox width="100%" spacing="true">
+            <form id="form" dataContainer="orderDc">
+                <column width="250px">
+                    <textField id="orderIdField" property="orderId"/>
+                    <dateField id="orderTimeField" property="orderTime" editable="false"/>
+                    <lookupPickerField id="customerField" optionsContainer="customersDc" property="customer">
+                        <actions>
+                            <action id="lookup" type="picker_lookup"/>
+                        </actions>
+                    </lookupPickerField>
+                    <textField id="deliveryInctructionsField" property="deliveryInctructions"/>
+                    <timeField id="deliveryTimeField" property="deliveryTime" editable="false"/>
+                    <textField id="totalAmountField" property="totalAmount" editable="false"/>
+                    <lookupPickerField id="staffField" optionsContainer="staffsDc" property="staff">
+                        <actions>
+                            <action id="lookup" type="picker_lookup"/>
+                        </actions>
+                    </lookupPickerField>
+                </column>
+            </form>
+            <button id="PrintInvoice"
+                    caption="printInvoice"
+                    align="MIDDLE_CENTER"/>
+        </hbox>
+        <groupBox id="linesBox" caption="msg://com.company.speedypizzaapp.entity/Order.lines">
+            <table id="linesTable" dataContainer="linesDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="dish"/>
+                    <column id="dish.price"/>
+                    <column id="quantity"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="linesTable.create"/>
+                    <button action="linesTable.edit"/>
+                    <button action="linesTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
